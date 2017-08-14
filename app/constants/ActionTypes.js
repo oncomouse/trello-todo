@@ -1,0 +1,7 @@
+// Filter actions:
+export const INPUT_CHANGED_ACTION = Symbol('INPUT_CHANGED_ACTION');
+export const INPUT_ERROR_ACTION = Symbol('INPUT_ERROR_ACTION');
+export const INPUT_VALID_ACTION = Symbol('INPUT_VALID_ACTION');
+export const INPUT_SUBMITTED_ACTION = Symbol('INPUT_SUBMITTED_ACTION');
+export const INPUT_PROCESSED_ACTION = Symbol('INPUT_PROCESSED_ACTION');
+export const UPDATE_ACTION = Symbol('UPDATE_ACTION');

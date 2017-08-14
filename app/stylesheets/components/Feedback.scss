@@ -1,0 +1,19 @@
+.output {
+	font-size: 1.75rem;
+	line-height: 2;
+	padding: 3rem 1.5rem;
+	margin-bottom: 20px;
+	border-radius: 2px;
+	pre {
+		background: transparent;
+	    color: inherit;
+	    border: none;
+		font-size: inherit;
+	}
+	p,pre {
+		margin-bottom: 0;
+	}
+}
+.hidden {
+	display: none;
+}
