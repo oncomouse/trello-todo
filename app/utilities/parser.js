@@ -71,7 +71,9 @@ export default input => {
 			
 			if(label === 'Research' || label === 'Writing') {
 				currentActivity = currentActivity.set('name', `${label} Sprint (45 Minutes)`);
-				currentActivity = currentActivity.set('desc', `- ${name}\n`);
+				if(name !== '') {
+					currentActivity = currentActivity.set('desc', `- ${name}\n`);
+				}
 			}
 			
 			// Handle Label:
