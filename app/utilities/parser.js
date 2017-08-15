@@ -54,7 +54,7 @@ export default input => {
 			// Figure out activity
 			currentActivity = new Card();
 			line = line.replace(/^-\s+/,'');
-			const [,,label,name,,times] = line.match(/^((Writing|Research|Home|Teaching|Service)\:){0,1}(.*?)(\ \(([0-9]+)\)){0,1}$/);
+			const [,,label,name,,times] = line.match(/^((Writing|Fun|Research|Home|Teaching|Service)\:){0,1}(.*?)(\ \(([0-9]+)\)){0,1}$/);
 			
 			if(currentDay === 'sunday') {
 				currentActivity = currentActivity.set('due', chrono.parseDate('today at 11:59PM'));
@@ -94,6 +94,10 @@ export default input => {
 						break;
 					case 'Teaching':
 						currentActivity = currentActivity.set('label', TEACHING_LABEL_NAME);
+						break;
+						FUN_LABEL_NAME
+					case 'Fun':
+						currentActivity = currentActivity.set('label', FUN_LABEL_NAME);
 						break;
 					case 'Service':
 						currentActivity = currentActivity.set('label', SERVICE_LABEL_NAME);
