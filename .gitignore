@@ -4,3 +4,4 @@ build/
 npm-debug.log
 cronAuth.js
 app/constants/secret.js
+trello-cron.*
