@@ -35,9 +35,8 @@ var webpackConfig = {
 					{
 						loader: 'babel-loader',
 						options: {
-							cacheDirectory: true,
-							presets: [['es2015', { "modules": false }], 'react', 'stage-0'],
-							plugins: ['transform-runtime', 'ramda', 'tailcall-optimization', 'lodash'] // Lodash plugin included because React loads lodash.
+							cacheDirectory: true
+							 // Lodash plugin included because React loads lodash.
 						},
 						
 					}
