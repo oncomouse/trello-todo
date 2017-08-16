@@ -1,8 +1,8 @@
 import {takeEvery, put, call, select} from 'redux-saga/effects'
-import {INPUT_SUBMITTED_ACTION, INPUT_CHANGED_ACTION} from 'constants/ActionTypes'
-import {updateAction, errorAction, processedAction, validAction} from 'actions/inputActions'
+import {INPUT_SUBMITTED_ACTION} from 'constants/ActionTypes'
+import {updateAction, errorAction, processedAction} from 'actions/inputActions'
 import {TODO_BOARD_NAME, TODO_LIST_NAME, RESEARCH_LABEL_NAME, FUN_LABEL_NAME, TEACHING_LABEL_NAME, SERVICE_LABEL_NAME, HOME_LABEL_NAME} from 'constants/Config'
-import {SUCCESS, FAILURE} from 'constants/Messages'
+import {SUCCESS} from 'constants/Messages'
 import * as API from 'api/trello'
 import R from 'ramda'
 import Card from 'models/Card'
@@ -61,25 +61,6 @@ function* inputSubmittedSaga(action) {
 	}
 }
 
-function* inputChangedSaga(action) {
-	let json = {};
-	let error = null;
-	try {
-		json = parser(action.payload.input);
-	} catch(e) {
-		error = e;
-	}
-	if(error === null && Object.keys(json).length === 0) {
-		error = 'Invalid ToDo List Format';
-	}
-	if (error !== null) {
-		yield put(errorAction(FAILURE(error)));
-	} else {
-		yield put(validAction(json));
-	}
-}
-
 export default function* observeInput() {
 	yield takeEvery(INPUT_SUBMITTED_ACTION, inputSubmittedSaga);
-	yield takeEvery(INPUT_CHANGED_ACTION, inputChangedSaga)
 }

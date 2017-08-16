@@ -1,5 +1,7 @@
-import inputSaga from 'sagas/input'
+import inputSubmittedSaga from 'sagas/inputSubmitted'
+import inputChangedSaga from 'sagas/inputChanged'
 
 export default () => [
-	inputSaga()
+	inputSubmittedSaga(),
+	inputChangedSaga()
 ]
