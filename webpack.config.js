@@ -158,15 +158,11 @@ var webpackConfig = {
 			'fetch': 'imports-loader?this=>global!exports-loader?global.fetch!isomorphic-fetch'
 		}),
 		new LodashModuleReplacementPlugin,
-		new webpack.optimize.CommonsChunkPlugin({
-			name: 'common',
-			filename: 'common.js'
-		}),
 		// Build the HTML file without having to include it in the app:
 		new HtmlWebpackPlugin({
 			files: {
 				css: isProd ? ['style.css'] : [],
-				js: ['common.js', 'bundle.js']
+				js: ['bundle.js']
 			},
 			title: APP_TITLE,
 			template: "./app/template/index.ejs",
@@ -176,7 +172,7 @@ var webpackConfig = {
 					css: isProd ? ['style.css'] : []
 				},
 				main: {
-					entry: ['common.js', 'bundle.js']
+					entry: ['bundle.js']
 				}
 			}
 		}),
