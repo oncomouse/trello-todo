@@ -55,13 +55,17 @@ export default input => {
 			currentActivity = new Card();
 			line = line.replace(/^-\s+/,'');
 			const [,,label,name,,times] = line.match(/^((Writing|Fun|Research|Reading|Home|Teaching|Service)\:){0,1}(.*?)(\ \(([0-9]+)\)){0,1}$/);
+			let time = 'at 11:59PM';
+			if (m = name.match(/ at ([0-9]+)(am|pm)/i)) {
+				time = `at ${m[1]}${m[2]}`
+			}
 			
 			if(currentDay === 'sunday') {
-				currentActivity = currentActivity.set('due', chrono.parseDate('today at 11:59PM'));
+				currentActivity = currentActivity.set('due', chrono.parseDate(`today ${time}`));
 			} else if(currentDay === 'sunday2') {
-				currentActivity = currentActivity.set('due', chrono.parseDate('next sunday at 11:59PM'));
+				currentActivity = currentActivity.set('due', chrono.parseDate(`next sunday ${time}`));
 			} else {
-				currentActivity = currentActivity.set('due', chrono.parseDate(`this ${currentDay} at 11:59PM`));
+				currentActivity = currentActivity.set('due', chrono.parseDate(`this ${currentDay} ${time}`));
 			}
 			
 			currentActivity = currentActivity.set('name', name);
