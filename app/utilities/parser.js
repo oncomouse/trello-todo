@@ -54,7 +54,7 @@ export default input => {
 			// Figure out activity
 			currentActivity = new Card();
 			line = line.replace(/^-\s+/,'');
-			const [,,label,name,,times] = line.match(/^((Writing|Fun|Research|Home|Teaching|Service)\:){0,1}(.*?)(\ \(([0-9]+)\)){0,1}$/);
+			const [,,label,name,,times] = line.match(/^((Writing|Fun|Research|Reading|Home|Teaching|Service)\:){0,1}(.*?)(\ \(([0-9]+)\)){0,1}$/);
 			
 			if(currentDay === 'sunday') {
 				currentActivity = currentActivity.set('due', chrono.parseDate('today at 11:59PM'));
@@ -69,7 +69,7 @@ export default input => {
 				currentActivity = currentActivity.set('times', parseInt(times))
 			}
 			
-			if(label === 'Research' || label === 'Writing') {
+			if(label === 'Research' || label === 'Writing' || label === 'Reading') {
 				currentActivity = currentActivity.set('name', `${label} Sprint (45 Minutes)`);
 				if(name !== '') {
 					currentActivity = currentActivity.set('desc', `- ${name}\n`);
@@ -85,10 +85,9 @@ export default input => {
 				currentActivity = currentActivity.set('label', TEACHING_LABEL_NAME);
 			} else if(typeof label !== undefined) {
 				switch(label) {
-					case 'Writing':
-						currentActivity = currentActivity.set('label', RESEARCH_LABEL_NAME);
-						break;
 					case 'Research':
+					case 'Writing':
+					case 'Reading':
 						currentActivity = currentActivity.set('label', RESEARCH_LABEL_NAME);
 						break;
 					case 'Home':
@@ -108,7 +107,7 @@ export default input => {
 			}
 			
 		} else if(line.match(/^\s+-/)) {
-			const description = `line\n`;
+			const description = `${line}\n`;
 			currentActivity = currentActivity.update('desc', x=>x + description);
 		} else {
 			throw `The following line has a syntax error:
