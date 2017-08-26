@@ -1,8 +1,8 @@
 import {List, Map, Record} from 'immutable'
-import {TODO_BOARD_NAME, TODO_LIST_NAME, RESEARCH_LABEL_NAME, FUN_LABEL_NAME, TEACHING_LABEL_NAME, SERVICE_LABEL_NAME, HOME_LABEL_NAME} from '../constants/Config'
+import {TODO_BOARD_NAME, TODO_LIST_NAME, RESEARCH_LABEL_NAME, FUN_LABEL_NAME, TEACHING_LABEL_NAME, SERVICE_LABEL_NAME, HOME_LABEL_NAME} from 'constants/Config'
 import R from 'ramda'
 import chrono from 'chrono-node'
-import Card from '../models/Card'
+import Card from 'models/Card'
 
 export default input => {
 	let json = Map();
