@@ -56,7 +56,7 @@ export default input => {
 			line = line.replace(/^-\s+/,'');
 			const [,,label,name,,times] = line.match(/^((Writing|Fun|Research|Reading|Home|Teaching|Service)\:){0,1}(.*?)(\ \(([0-9]+)\)){0,1}$/);
 			let time = 'at 11:59PM';
-			if (m = name.match(/ at ([0-9]+)(am|pm)/i)) {
+			if (m = name.match(/ at ([0-9:]+)(am|pm)/i)) {
 				time = `at ${m[1]}${m[2]}`
 			}
 			
