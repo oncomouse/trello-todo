@@ -74,7 +74,6 @@ export default input => {
 			} else if(currentDay === 'sunday2') {
 				chronoPass = `next sunday ${time}`;
 			}
-			console.log(chronoPass, chrono.parseDate(chronoPass));
 			currentActivity = currentActivity.set('due', chrono.parseDate(chronoPass));
 			
 			currentActivity = currentActivity.set('name', name);
@@ -129,7 +128,6 @@ ${line}`;
 		}
 	})
 	if(currentActivity !== null) {
-		console.log(currentDay)
 		R.times(() => json = json.update(currentDay, x => x.push(currentActivity)), currentActivity.get('times'));
 	}
 	return json;
