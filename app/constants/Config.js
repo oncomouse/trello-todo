@@ -11,3 +11,4 @@ export const FUN_LABEL_NAME = 'Fun';
 export const TEACHING_LABEL_NAME = 'Teaching';
 export const SERVICE_LABEL_NAME = 'Service';
 export const HOME_LABEL_NAME = 'House/Life'
+export const TWENTY_FOUR_HOUR_TIME = false;

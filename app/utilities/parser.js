@@ -1,5 +1,5 @@
 import {List, Map, Record} from 'immutable'
-import {TODO_BOARD_NAME, TODO_LIST_NAME, RESEARCH_LABEL_NAME, FUN_LABEL_NAME, TEACHING_LABEL_NAME, SERVICE_LABEL_NAME, HOME_LABEL_NAME} from 'constants/Config'
+import {TODO_BOARD_NAME, TODO_LIST_NAME, RESEARCH_LABEL_NAME, FUN_LABEL_NAME, TEACHING_LABEL_NAME, SERVICE_LABEL_NAME, HOME_LABEL_NAME, TWENTY_FOUR_HOUR_TIME} from 'constants/Config'
 import R from 'ramda'
 import chrono from 'chrono-node'
 import Card from 'models/Card'
@@ -57,12 +57,15 @@ export default input => {
 			const [,,label,name,,times] = line.match(/^((Writing|Fun|Research|Reading|Home|Teaching|Service)\:){0,1}\s*(.*?)(\ \(([0-9]+)\)){0,1}$/);
 			let time = 'at 11:59PM';
 			if (m = name.match(/ at ([0-9:]+)(am|pm){0,1}/i)) {
-				let amOrPm = m[2]
-				if(amOrPm === undefined) {
-					if(parseInt(m[1]) > 7) {
-						amOrPm = 'am'
-					} else {
-						amOrPm = 'pm'
+				let amOrPm = m[2];
+				if (!TWENTY_FOUR_HOUR_TIME) {
+					const hour = parseInt(m[1].slice(0,2));
+					if(amOrPm === undefined) {
+						if(hour > 7 && hour < 12) {
+							amOrPm = 'am'
+						} else {
+							amOrPm = 'pm'
+						}
 					}
 				}
 				time = `at ${m[1]}${amOrPm}`
