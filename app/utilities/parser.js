@@ -54,19 +54,28 @@ export default input => {
 			// Figure out activity
 			currentActivity = new Card();
 			line = line.replace(/^-\s+/,'');
-			const [,,label,name,,times] = line.match(/^((Writing|Fun|Research|Reading|Home|Teaching|Service)\:){0,1}(.*?)(\ \(([0-9]+)\)){0,1}$/);
+			const [,,label,name,,times] = line.match(/^((Writing|Fun|Research|Reading|Home|Teaching|Service)\:){0,1}\s*(.*?)(\ \(([0-9]+)\)){0,1}$/);
 			let time = 'at 11:59PM';
-			if (m = name.match(/ at ([0-9:]+)(am|pm)/i)) {
-				time = `at ${m[1]}${m[2]}`
+			if (m = name.match(/ at ([0-9:]+)(am|pm){0,1}/i)) {
+				let amOrPm = m[2]
+				if(amOrPm === undefined) {
+					if(parseInt(m[1]) > 7) {
+						amOrPm = 'am'
+					} else {
+						amOrPm = 'pm'
+					}
+				}
+				time = `at ${m[1]}${amOrPm}`
 			}
 			
+			let chronoPass = `this ${currentDay} ${time}`;
 			if(currentDay === 'sunday') {
-				currentActivity = currentActivity.set('due', chrono.parseDate(`today ${time}`));
+				chronoPass = `today ${time}`
 			} else if(currentDay === 'sunday2') {
-				currentActivity = currentActivity.set('due', chrono.parseDate(`next sunday ${time}`));
-			} else {
-				currentActivity = currentActivity.set('due', chrono.parseDate(`this ${currentDay} ${time}`));
+				chronoPass = `next sunday ${time}`;
 			}
+			console.log(chronoPass, chrono.parseDate(chronoPass));
+			currentActivity = currentActivity.set('due', chrono.parseDate(chronoPass));
 			
 			currentActivity = currentActivity.set('name', name);
 			if(typeof times !== 'undefined') {
@@ -120,6 +129,7 @@ ${line}`;
 		}
 	})
 	if(currentActivity !== null) {
+		console.log(currentDay)
 		R.times(() => json = json.update(currentDay, x => x.push(currentActivity)), currentActivity.get('times'));
 	}
 	return json;
