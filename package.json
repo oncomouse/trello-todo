@@ -8,7 +8,7 @@
   },
   "main": "app/index.js",
   "scripts": {
-    "test": "env NODE_PATH=./node_modules:./app babel-node --presets es2015 test.js",
+    "test": "env NODE_PATH=./node_modules:./app babel-node test.js",
     "start": "webpack-dev-server",
     "build": "env NODE_ENV=production webpack",
     "analyze": "env ANALYZE=1 NODE_ENV=production webpack",
