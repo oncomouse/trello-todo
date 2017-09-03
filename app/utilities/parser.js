@@ -4,6 +4,12 @@ import R from 'ramda'
 import chrono from 'chrono-node'
 import Card from 'models/Card'
 
+const log = (...args) => {
+	if(process.env.NODE_ENV !== 'production') {
+		console.log(args)
+	}
+}
+
 export default input => {
 	let json = Map();
 	let currentDay = null;
@@ -54,7 +60,13 @@ export default input => {
 			// Figure out activity
 			currentActivity = new Card();
 			line = line.replace(/^-\s+/,'');
-			const [,,label,name,,times] = line.match(/^((Writing|Fun|Research|Reading|Home|Teaching|Service)\:){0,1}\s*(.*?)(\ \(([0-9]+)\)){0,1}$/);
+			let [,,label,name,,times] = line.match(/^((Writing|Fun|Research|Reading|Home|Teaching|Service)\:){0,1}\s*(.*?)(\ \(([0-9]+)\)){0,1}$/);
+			log(label, name, times);
+			// Hack because "Writing: (3)" does not produce label = "Writing", name = "", and times = 3 as it should
+			if(times === undefined && name.match(/\([0-9]\)/) !== null) {
+				times = parseInt(name.replace(/[()]/g,''));
+				name = '';
+			}
 			let time = 'at 11:59PM';
 			if (m = name.match(/ at ([0-9:]+)(am|pm){0,1}/i)) {
 				let amOrPm = m[2];
